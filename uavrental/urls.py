@@ -13,10 +13,15 @@ router.register(r'customer', CustomerViewSet)
 router.register(r'reservation', ReservationViewSet)
 
 urlpatterns = [
+    # admin panel
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+
+    # main api
     path('api/', include(router.urls)),
     
+
+    # authentication
+    path('api-auth/', include('rest_framework.urls')),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
