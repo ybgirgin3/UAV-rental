@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +27,36 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+
+    'rest_framework',
     'rental',
-    'customer',
-    'rest_framework'
+    'user',
+    'rest_framework_simplejwt'
+    
 ]
+
+
+# Configure JWT authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# Configure JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token validity duration
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Token can be refreshed within this time
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),  # Token lifetime after refreshing
+    'SLIDING_TOKEN_REFRESH_ON_LOGIN': True,
+    'SLIDING_TOKEN_REFRESH_ON_REFRESH': False,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
