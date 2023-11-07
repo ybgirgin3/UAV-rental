@@ -5,12 +5,13 @@ from rest_framework import routers
 
 
 # viewsets
-from rental.views import UAVViewSet, CustomerViewSet, ReservationViewSet
+from rental.views import UAVViewSet, CategoryViewSet
 
-router = routers.DefaultRouter(trailing_slash=True)
+router = routers.DefaultRouter()
 router.register(r'uav', UAVViewSet)
-router.register(r'customer', CustomerViewSet)
-router.register(r'reservation', ReservationViewSet)
+router.register(r'category', CategoryViewSet)
+# router.register(r'customer', CustomerViewSet)
+# router.register(r'reservation', ReservationViewSet)
 
 urlpatterns = [
     # admin panel
@@ -18,8 +19,6 @@ urlpatterns = [
 
     ## MAIN API 
     path('api/', include(router.urls)),
-    # custom
-    # path('api/uav/<int:pk>/delete/', UAVViewSet.as_view({'delete': 'destroy'}, name='uav-delete')),
     
 
     # authentication
