@@ -38,7 +38,6 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('start_time', models.DateTimeField()),
                 ('end_time', models.DateTimeField()),
-                ('is_active', models.BooleanField(default=True)),
                 ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rental.customer')),
                 ('uav', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rental.uav')),
             ],

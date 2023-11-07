@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -33,3 +33,20 @@ class CustomerViewSet(viewsets.ModelViewSet):
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    
+    
+    def destroy(self, request, *args, **kwargs):
+        # get the associated UAV from the data
+        instance = self.get_object()
+
+        # get the associated uav
+        uav = instance.uav
+        
+        # set the is_available field to the UAV to True 
+        uav.is_available = True 
+        uav.save()
+        
+        # delete the reservation
+        instance.delete()
+        
+        return Response(status=status.HTTP_204_NO_CONTENT) 

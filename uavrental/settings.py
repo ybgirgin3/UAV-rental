@@ -16,6 +16,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = True
+
 
 # Application definition
 
@@ -31,32 +33,32 @@ INSTALLED_APPS = [
     'rest_framework',
     'rental',
     'user',
-    'rest_framework_simplejwt'
+    # 'rest_framework_simplejwt'
     
 ]
 
 
-# Configure JWT authentication
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+# # Configure JWT authentication
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
 
-# Configure JWT settings
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token validity duration
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Token can be refreshed within this time
-    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),  # Token lifetime after refreshing
-    'SLIDING_TOKEN_REFRESH_ON_LOGIN': True,
-    'SLIDING_TOKEN_REFRESH_ON_REFRESH': False,
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-}
+# # Configure JWT settings
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Token validity duration
+#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Token can be refreshed within this time
+#     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),  # Token lifetime after refreshing
+#     'SLIDING_TOKEN_REFRESH_ON_LOGIN': True,
+#     'SLIDING_TOKEN_REFRESH_ON_REFRESH': False,
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,
+#     'VERIFYING_KEY': None,
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+#     'USER_ID_FIELD': 'id',
+#     'USER_ID_CLAIM': 'user_id',
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
