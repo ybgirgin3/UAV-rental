@@ -1,52 +1,56 @@
-from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import UAV, Customer, Reservation
+from .models import UAV, Customer, Reservation, Category
 from .serializers import (
     UAVSerializer,
     CustomerSerializer,
-    ReservationSerializer
+    ReservationSerializer,
+    CategorySerializer
 )
 
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 class UAVViewSet(viewsets.ModelViewSet):
     queryset = UAV.objects.all()
     serializer_class = UAVSerializer
-    
-    @action(detail=False, methods=['GET'])
-    def list_available(self, request):
-        """
-            list only available UAVs
-        """
-        available_uavs = UAV.objects.filter(is_available=True)
-        serializer = UAVSerializer(available_uavs, many=True)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-
-class CustomerViewSet(viewsets.ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-
-
-class ReservationViewSet(viewsets.ModelViewSet):
-    queryset = Reservation.objects.all()
-    serializer_class = ReservationSerializer
-    
-    
-    def destroy(self, request, *args, **kwargs):
-        # get the associated UAV from the data
+    def update(self, request, *args, **kwargs):
         instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        # get the associated uav
-        uav = instance.uav
-        
-        # set the is_available field to the UAV to True 
-        uav.is_available = True 
-        uav.save()
-        
-        # delete the reservation
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            # Custom logic for partial data validation and updating
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
         instance.delete()
-        
-        return Response(status=status.HTTP_204_NO_CONTENT) 
+        return Response(status=status.HTTP_204_NO_CONTENT)
