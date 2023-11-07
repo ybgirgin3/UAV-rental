@@ -29,6 +29,6 @@ class Reservation(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return f'{self.uav}: {self.customer}, active till: {self.end_time if self.is_active else "expired"}'
+        return f'{self.uav}: {self.customer}, expires at: {self.end_time if self.is_active else "expired"}'
 
 
