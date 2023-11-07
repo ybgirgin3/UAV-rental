@@ -24,19 +24,6 @@ class UAV(models.Model):
         return f'{self.name}: {self.description}'
 
 
-# class Customer(models.Model):
-#     """
-#         Customer Model
-#     """
-#     firstname = models.CharField(max_length=50)
-#     lastname = models.CharField(max_length=50)
-#     phone = models.CharField(max_length=20)
-#     email = models.EmailField()
-
-#     def __str__(self) -> str:
-#         return f'{self.firstname} {self.lastname}'
-
-
 class Reservation(models.Model):
     """
         Reservation Model
