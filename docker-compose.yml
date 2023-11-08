@@ -1,25 +1,58 @@
 version: '3.9'
 
 services:
-  #   db:
-  #     images: postgres
-  #     volumes:
-  #       - ./data/db:/var/lib/postgresql/data
-  #     environment:
-  #       - POSTGRES_DB=postgres
-  #       - POSTGRES_USER=postgres
-  #       - POSTGRES_PASSWORD=postgres
+  # db:
+  #   restart: always
+  #   build:
+  #     context: ./postgres-setup
+  #     dockerfile: Dockerfile
 
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./.:/code
+  #   ports:
+  #     - '5432:5432'
+
+  #   environment:
+  #     - POSTGRES_DB=uav
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=admin
+
+  #   volumes:
+  #     - ./dbdata:/var/lib/postgresql/data/
+  #     # - ./scripts/:/docker-entrypoint-initdb.d/
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+
+  #   environment:
+  #     - POSTGRES_DB=uav
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=admin
+
+  #   ports:
+  #     - '3000:3000'
+
+  #   volumes:
+  #     - ./frontend:/code/fronted
+
+  #   depends_on:
+  #     - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    # environment:
+    #   - POSTGRES_DB=uav
+    #   - POSTGRES_USER=admin
+    #   - POSTGRES_PASSWORD=admin
+
     ports:
       - '8000:8000'
-    env_file:
-      - ./.env.dev
-    # environment:
-    #   - POSTGRES_NAME=postgres
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_PASSWORD=postgres
+
+    volumes:
+      - ./backend:/code/backend
+
+    # depends_on:
+    #   - db

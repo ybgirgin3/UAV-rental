@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-eah)d89*86hpvw+kdd3)u-o+b2jgw6^n725qw-=_1m1wty)h2p
 DEBUG = True
 # DEBUG = bool(os.environ("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split()
 
 APPEND_SLASH = True
