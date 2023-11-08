@@ -44,78 +44,82 @@ export default function CreateScreen() {
     return data;
   };
 
-  return (
-    <Form
-      name="basic"
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
-      style={{
-        maxWidth: 600,
-      }}
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={handleSubmission}
-      autoComplete="on">
-      <Form.Item
-        label="UAV"
-        name="uav"
-        rules={[{ required: true, message: 'Please select a uav' }]}>
-        <Select>
-          {uav.map((item) => (
-            <Select.Option value={item.name}>{item.name}</Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label="Customer Name"
-        name="customer"
-        rules={[
-          {
-            required: true,
-            message: 'Please insert a valid name!',
-          },
-        ]}>
-        <Input placeholder={localStorage.getItem('username')} />
-      </Form.Item>
-
-      <Form.Item
-        label="IssueDate"
-        name="issue_date_datetime"
-        rules={[
-          {
-            required: true,
-            message: 'Please select a date!',
-          },
-        ]}>
-        <DatePicker />
-      </Form.Item>
-
-      <Form.Item
-        label="Return Date"
-        name="return_date_datetime"
-        rules={[
-          {
-            required: true,
-            message: 'Please select a date!',
-          },
-        ]}>
-        <DatePicker />
-      </Form.Item>
-
-      <Form.Item
+  if (localStorage.getItem('access_token') !== null) {
+    return (
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
         wrapperCol={{
-          offset: 8,
           span: 16,
-        }}>
-        <Button type="secondary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-  );
+        }}
+        style={{
+          maxWidth: 600,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={handleSubmission}
+        autoComplete="on">
+        <Form.Item
+          label="UAV"
+          name="uav"
+          rules={[{ required: true, message: 'Please select a uav' }]}>
+          <Select>
+            {uav.map((item) => (
+              <Select.Option value={item.name}>{item.name}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Customer Name"
+          name="customer"
+          rules={[
+            {
+              required: true,
+              message: 'Please insert a valid name!',
+            },
+          ]}>
+          <Input placeholder={localStorage.getItem('username')} />
+        </Form.Item>
+
+        <Form.Item
+          label="IssueDate"
+          name="issue_date_datetime"
+          rules={[
+            {
+              required: true,
+              message: 'Please select a date!',
+            },
+          ]}>
+          <DatePicker />
+        </Form.Item>
+
+        <Form.Item
+          label="Return Date"
+          name="return_date_datetime"
+          rules={[
+            {
+              required: true,
+              message: 'Please select a date!',
+            },
+          ]}>
+          <DatePicker />
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}>
+          <Button type="secondary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    );
+  } else {
+    return <div>You need to login to book a reservation</div>;
+  }
 }
