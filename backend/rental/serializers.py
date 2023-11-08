@@ -35,8 +35,8 @@ class ReservationSerializer(serializers.ModelSerializer):
     """
         Serializer for Reservation
     """
-    customer = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(is_active=True))
-    uav = serializers.PrimaryKeyRelatedField(queryset=UAV.objects.filter(is_available=True))
+    customer = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(is_active=True), source='customer.username')
+    uav = serializers.PrimaryKeyRelatedField(queryset=UAV.objects.filter(is_available=True), source='uav.name')
     class Meta:
         model = Reservation
         fields = '__all__'
