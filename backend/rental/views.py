@@ -64,6 +64,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
         if serializer.is_valid():
             serializer.save()
+            # print('reservation data', serializer.data)
 
             # get uav and make it unavailable
             uav = UAV.objects.get(pk=serializer.data.get('uav'))
