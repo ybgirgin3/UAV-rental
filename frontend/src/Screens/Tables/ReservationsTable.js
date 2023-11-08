@@ -13,7 +13,7 @@ function ReservationsTable() {
         console.log(response.data);
       })
       .catch((error) => {
-        console.error('Veri alınamadı: ', error);
+        console.error('Unable to Fetch Data: ', error);
       });
   }, []);
   return (
