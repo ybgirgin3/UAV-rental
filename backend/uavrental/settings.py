@@ -18,13 +18,15 @@ SECRET_KEY = 'django-insecure-eah)d89*86hpvw+kdd3)u-o+b2jgw6^n725qw-=_1m1wty)h2p
 DEBUG = True
 # DEBUG = bool(os.environ("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
 # ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split()
 
 APPEND_SLASH = True
 
 AUTH_USER_MODEL = "user.User" 
 
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 
 # Application definition
 
@@ -35,14 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
 
     'rest_framework',
     'rental',
     'user',
     'corsheaders',
-    'rest_framework_simplejwt'
-    
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 CORS_ALLOWED_ORIGINS = [

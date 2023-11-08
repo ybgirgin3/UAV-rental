@@ -3,6 +3,9 @@ from django.urls import path, include
 from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView
+)
 
 
 # viewsets
@@ -22,7 +25,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     # auth
-    path('auth/', include('user.urls'))
+    path('auth/', include('user.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+
 
 ]
 
