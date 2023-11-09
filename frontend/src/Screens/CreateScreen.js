@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, DatePicker, Select } from 'antd';
 import axios from 'axios';
+import moment from 'moment';
 
 /**
  * CreateScreen Component
@@ -28,8 +29,13 @@ export default function CreateScreen() {
 
   const handleSubmission = (values) => {
     values['is_deleted'] = false;
-    values['issue_date'] = values['issue_date_datetime'].toLocalDateString;
-    values['return_date'] = values['return_date_datetime'].toLocalDateString;
+    values['issue_date'] = moment(values['issue_date_datetime']).format(
+      'YYYY-MM-DD',
+    );
+    values['return_date'] = moment(values['return_date_datetime']).format(
+      'YYYY-MM-DD',
+    );
+    values['customer'] = 1;
     console.log('values', values);
 
     axios
@@ -68,7 +74,7 @@ export default function CreateScreen() {
           rules={[{ required: true, message: 'Please select a uav' }]}>
           <Select>
             {uav.map((item) => (
-              <Select.Option value={item.name}>{item.name}</Select.Option>
+              <Select.Option value={item.id}>{item.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -93,7 +99,7 @@ export default function CreateScreen() {
               message: 'Please select a date!',
             },
           ]}>
-          <DatePicker />
+          <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
 
         <Form.Item
@@ -105,7 +111,7 @@ export default function CreateScreen() {
               message: 'Please select a date!',
             },
           ]}>
-          <DatePicker />
+          <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
 
         <Form.Item
