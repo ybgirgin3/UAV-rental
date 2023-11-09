@@ -4,6 +4,8 @@ UAV Rental Project
 
 This project is created based on UAV Rental Project. Uses Django and Django RestFramework as backend, uses React for frontend and uses Postgresql for Database
 
+for detailed docs see: <a href='docs/doc.md'>docs/doc.md<a/>
+
 Detailed Tech Stacks:
 
 - Backend:
@@ -49,3 +51,11 @@ if you want to access admin panel you can directly go to [`http://127.0.0.1:8000
 **NOTE**: _username: admin, password: admin_
 
 address to access all of the db management interface provided from django
+
+## Contributors
+
+- Yusuf Berkay Girgin
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
