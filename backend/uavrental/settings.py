@@ -10,6 +10,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+
+ADMINS = (
+    ('admin', 'admin@gmail.com'),
+)
+ADMIN_USERNAME = 'admin'
+ADMIN_EMAIL = 'admin@gmail.com'
+ADMIN_INITIAL_PASSWORD = 'admin' # To be changed after first login by admin
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-eah)d89*86hpvw+kdd3)u-o+b2jgw6^n725qw-=_1m1wty)h2p'
 # SECRET_KEY = os.environ.get('SECRET_KEY')
