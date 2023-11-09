@@ -1,52 +1,54 @@
 version: '3.9'
 
 services:
-  # db:
-  #   restart: always
-  #   build:
-  #     context: ./postgres-setup
-  #     dockerfile: Dockerfile
+  db:
+    image: postgres:16-alpine
+    ports:
+      - '5432:5432'
 
-  #   ports:
-  #     - '5432:5432'
+    environment:
+      - POSTGRES_DB=uav
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
 
-  #   environment:
-  #     - POSTGRES_DB=uav
-  #     - POSTGRES_USER=admin
-  #     - POSTGRES_PASSWORD=admin
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data/
+        # - ./scripts/:/docker-entrypoint-initdb.d/
 
-  #   volumes:
-  #     - ./dbdata:/var/lib/postgresql/data/
-  #     # - ./scripts/:/docker-entrypoint-initdb.d/
+    networks:
+      - mynetwork
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
 
-  #   environment:
-  #     - POSTGRES_DB=uav
-  #     - POSTGRES_USER=admin
-  #     - POSTGRES_PASSWORD=admin
+    environment:
+      - POSTGRES_DB=uav
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
 
-  #   ports:
-  #     - '3000:3000'
+    ports:
+      - '3000:3000'
 
-  #   volumes:
-  #     - ./frontend:/code/fronted
+    volumes:
+      - ./frontend:/code/fronted
 
-  #   depends_on:
-  #     - backend
+    depends_on:
+      - backend
+
+    networks:
+      - mynetwork
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
 
-    # environment:
-    #   - POSTGRES_DB=uav
-    #   - POSTGRES_USER=admin
-    #   - POSTGRES_PASSWORD=admin
+    environment:
+      - POSTGRES_DB=uav
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
 
     ports:
       - '8000:8000'
@@ -54,5 +56,11 @@ services:
     volumes:
       - ./backend:/code/backend
 
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
+
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork: {}
