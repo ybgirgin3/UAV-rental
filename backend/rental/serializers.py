@@ -5,35 +5,62 @@ from user.models import User
 
 
 class UAVSerializer(serializers.ModelSerializer):
-    """
-        Serializer for UAVs
+    """UAV Serializer
+    Serializes UAV (Unmanned Aerial Vehicle) data.
+
+    Attributes:
+        Meta: Configuration options for the serializer.
+
+    Example:
+        serializer = UAVSerializer(uav_instance)
+        data = serializer.data
     """
     class Meta:
         model = UAV
         fields = '__all__'
 
 class CategorySerializer(serializers.ModelSerializer):
+    """Category Serializer
+    Serializes Category data.
+
+    Attributes:
+        Meta: Configuration options for the serializer.
+
+    Example:
+        serializer = CategorySerializer(category_instance)
+        data = serializer.data
+    """
     class Meta:
         model = Category
         fields = '__all__'
 
 class AvailableUAVSerializer(serializers.ModelSerializer):
+    """Available UAV Serializer
+    Serializes UAV data for available UAVs.
+
+    Attributes:
+        Meta: Configuration options for the serializer.
+
+    Example:
+        serializer = AvailableUAVSerializer(uav_instance)
+        data = serializer.data
+    """
     class Meta:
         model = UAV
         fields = '__all__'
 
-# class CustomerSerializer(serializers.ModelSerializer):
-#     """
-#         Serializer for Customer
-#     """
-#     class Meta:
-#         model = Customer
-#         fields = '__all__'
-
 
 class ReservationSerializer(serializers.ModelSerializer):
-    """
-        Serializer for Reservation
+    """Reservation Serializer
+    Serializes Reservation data.
+
+    Attributes:
+        customer (serializers.PrimaryKeyRelatedField): Represents the customer making the reservation.
+        uav (serializers.PrimaryKeyRelatedField): Represents the UAV being reserved.
+
+    Example:
+        serializer = ReservationSerializer(reservation_instance)
+        data = serializer.data
     """
     customer = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(is_active=True), source='customer.username')
     uav = serializers.PrimaryKeyRelatedField(queryset=UAV.objects.filter(is_available=True), source='uav.name')
