@@ -6,6 +6,16 @@ from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class UserSerializer(serializers.ModelSerializer):
+    """User Serializer
+    Serializes User model data.
+
+    Attributes:
+        Meta: Configuration options for the serializer.
+
+    Example:
+        serializer = UserSerializer(user_instance)
+        data = serializer.data
+    """
     class Meta:
         model = User
         fields = [
@@ -21,6 +31,14 @@ class UserSerializer(serializers.ModelSerializer):
             }
         
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """TokenObtainPairSerializer
+    Implements JWT (Json Web Token) for Authentication and creates Access Token and Refresh Token.
+
+    Example:
+        serializer = MyTokenObtainPairSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        token = serializer.validated_data
+    """
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -37,6 +55,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """RegisterSerializer
+    Implements user registration.
+
+    Attributes:
+        password (CharField): User's password.
+        password2 (CharField): User's password confirmation.
+
+    Example:
+        serializer = RegisterSerializer(data=data)
+        if serializer.is_valid():
+            user = serializer.save()
+    """
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)

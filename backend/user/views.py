@@ -12,16 +12,34 @@ from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
 
 User = get_user_model()
 
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
 
 class RegisterView(generics.CreateAPIView):
+    """RegisterView
+    Allows users to register by creating a new account.
+
+    Attributes:
+        queryset: The queryset of User objects.
+        permission_classes: The permissions required for this view.
+        serializer_class: The serializer class used for registration.
+
+    Example:
+        To register a new user, make a POST request with user data.
+    """
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
 
 class LogoutView(APIView):
+    """LogoutView
+    Allows users to log out by blacklisting their refresh token.
+
+    Attributes:
+        permission_classes: The permissions required for this view.
+
+    Example:
+        To log out, make a POST request with a refresh token.
+    """
     permission_classes = (IsAuthenticated,)
     def post(self, request):
         try:
@@ -32,12 +50,3 @@ class LogoutView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
-# @api_view(['GET'])
-# def getRoutes(request):
-#     routes = [
-#         '/api/token/',
-#         '/api/register/',
-#         '/api/token/refresh/'
-#     ]
-#     return Response(routes)
