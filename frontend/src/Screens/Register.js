@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+/**
+ * Register Component
+ * Handles user registration and redirects to the login page upon success.
+ *
+ * @returns {JSX.Element} The Register component.
+ */
 
 export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password2, setPassword2] = useState('');
+  const navigate = useNavigate();
 
+  /**
+   * Handles user registration by sending a POST request to the server.
+   * If successful, it redirects the user to the login page.
+   */
   const handleRegister = () => {
     axios
       .post('http://localhost:8000/auth/register/', {
@@ -16,12 +29,13 @@ export default function Register() {
         password2,
       })
       .then((response) => {
-        // Kullanıcı başarıyla kaydedildiğinde yapılacak işlemler
         console.log('user registered in register page');
+        navigate('/login');
       })
       .catch((error) => {
         // Hata durumunda yapılacak işlemler
         console.log('user not registered in register page');
+        console.warn(error);
       });
   };
 

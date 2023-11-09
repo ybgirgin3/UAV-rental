@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, DatePicker, Select } from 'antd';
 import axios from 'axios';
 
+/**
+ * CreateScreen Component
+ * Allows users to create reservations.
+ *
+ * @returns {JSX.Element} The CreateScreen component.
+ */
+
 export default function CreateScreen() {
   const [uav, setUav] = useState([]);
   const [data, setData] = useState([]);
@@ -37,6 +44,7 @@ export default function CreateScreen() {
   };
 
   if (localStorage.getItem('access_token') !== null) {
+    // if access token is in localstore (that means user not logged out)
     return (
       <Form
         name="basic"

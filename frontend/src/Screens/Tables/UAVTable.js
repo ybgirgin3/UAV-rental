@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import TableFactory from '../../Components/TableFactory';
 
+/**
+ * UAVTable Component
+ * Fetches and displays a table of UAVs (Unmanned Aerial Vehicles) data from the API.
+ *
+ * @returns {JSX.Element} The UAVTable component.
+ */
+
 function UAVTable() {
   const [data, setData] = useState([]);
 

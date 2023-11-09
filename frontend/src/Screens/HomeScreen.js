@@ -1,9 +1,15 @@
 import React from 'react';
-
 import { Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import UAVTable from './Tables/UAVTable';
 import ReservationsTable from './Tables/ReservationsTable';
+
+/**
+ * HomeScreen Component
+ * Displays a tabbed interface for viewing UAVs and reservations.
+ *
+ * @returns {JSX.Element} The HomeScreen component.
+ */
 
 function HomeScreen() {
   if (localStorage.getItem('access_token') !== null) {

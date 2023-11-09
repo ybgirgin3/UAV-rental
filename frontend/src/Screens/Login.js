@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Login Component
+ * Allows users to log in with a username and password.
+ *
+ * @returns {JSX.Element} The Login component.
+ */
+
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

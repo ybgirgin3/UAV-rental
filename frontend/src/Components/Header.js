@@ -1,6 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+/**
+ * Header Component
+ * Renders a navigation bar with links to different pages.
+ *
+ * @returns {JSX.Element} The Header component.
+ */
+
 export default function Header() {
   const styles = {
     navStyle: {
